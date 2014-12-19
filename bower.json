@@ -1,16 +1,18 @@
 {
-  "name": "angular-directive-seed",
-  "version": "0.0.0",
+  "name": "peons-angular",
+  "version": "0.0.1",
   "authors": [
     "Hannes Diercks <hannes.diercks@jimdo.com>",
     "Joscha Feth <joscha@feth.com>",
     "Hauke Stange <hauke@jimdo.com>"
   ],
-  "description": "A starting point for angular directives.",
-  "main": "dist/angular-directive-seed.js",
+  "description": "grunt based peons for angular projects",
   "keywords": [
-    "directive",
-    "angular"
+    "angular",
+    "grunt",
+    "helpers",
+    "tdd",
+    "demo"
   ],
   "license": "MIT",
   "private": true,
@@ -18,16 +20,5 @@
     "angular": "~1.2.21",
     "angular-mocks": "~1.2.21",
     "jasmine-moar-matchers": "~0.0.2"
-  },
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tasks",
-    "demo",
-    "src",
-    "Gruntfile.js",
-    "package.json"
-  ]
+  }
 }

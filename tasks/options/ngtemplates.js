@@ -1,4 +1,4 @@
-var files = require('../files');
+var helpers = require('../helpers');
 
 module.exports = {
   options: {
@@ -11,11 +11,12 @@ module.exports = {
       removeRedundantAttributes: true,
       removeScriptTypeAttributes: true,
       removeStyleLinkTypeAttributes: true
-    }
+    },
+    module: helpers.getModuleName()
   },
-  'myModule': {
-    cwd: files.partialsDir,
-    src: files.allHTML,
-    dest: files.allPartialsCombined,
+  dist: {
+    cwd: helpers.getFiles('src.partialsFolder'),
+    src: '**/*.html',
+    dest: helpers.getFiles('internal.ngTemplates')
   }
 };

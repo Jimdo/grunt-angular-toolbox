@@ -1,14 +1,11 @@
-var files = require('../files');
-var Helpers = require('../helpers');
-
-var fls = {};
-fls[files.distMin] = [files.dist];
+var helpers = require('../helpers');
 
 module.exports = {
-  options: {
-    banner: Helpers.getTemplate('banner-min')
-  },
   dist: {
-    files: fls
+    options: {
+      banner: helpers.getTemplate('bannerMin')
+    },
+    src: '<%= concat.dist.dest %>',
+    dest: helpers.getFolder('dist', '<%= pkg.name %>.min.js')
   }
 };

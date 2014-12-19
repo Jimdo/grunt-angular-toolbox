@@ -1,11 +1,17 @@
 /* global process */
 var grunt = require('grunt');
-var lf = grunt.util.linefeed;
+var util = grunt.util;
+var _ = util._;
+var lf = util.linefeed;
 var fs = require('fs');
 var path = require('path');
-var Helpers = {};
+var helpers = {};
 var base = process.cwd();
 var glob = require('glob');
+var projectConfig;
+var projectDir = grunt.option('projectDir');
+var getNamespace = util.namespace.get;
+var additionalPeons = function() {};
 
 /* Overwrite browser env variables if grunt options are set */
 var browsers = grunt.option('browser') || grunt.option('browsers');
@@ -20,25 +26,101 @@ if (reporters) {
   process.env.PROTRACTOR_REPORTERS = reporters;
 }
 
-Helpers.config = {
-  pkg: grunt.file.readJSON('./package.json'),
+helpers.config = {
+  pkg: grunt.file.readJSON(path.join(projectDir, 'package.json')),
+  projectDir: projectDir,
   env: process.env
 };
 
-Helpers.loadConfig = function(path) {
+function readProjectConfig() {
+  var configFiles = glob.sync(
+    path.join(projectDir, 'peonsfile.+(js|coffee)'),
+    {nocase: true}
+  );
+
+  if (!configFiles.length) {
+    projectConfig = {};
+  } else {
+    var config = require(configFiles[0]);
+    projectConfig = config.config;
+    if (_.isFunction(config)) {
+      additionalPeons = config;
+    }
+  }
+}
+
+helpers.projectConfig = function() {
+  if (!projectConfig) {
+    readProjectConfig();
+  }
+
+  return projectConfig;
+};
+
+helpers.additionalPeons = function(grunt) {
+  additionalPeons(grunt);
+};
+
+var getFiles = helpers.getFiles = function(files) {
+  return getNamespace(require('./files'), files);
+};
+
+var getFolder = helpers.getFolder = function(folder) {
+  var rest = [].slice.call(arguments, 1);
+
+  return path.join.apply(
+    path.join,
+    [getFiles(folder + 'Folder')].concat(rest)
+  );
+};
+
+var getProjectConfig = helpers.getProjectConfig = function(path, fallback) {
+  var value = getNamespace(helpers.projectConfig(), path);
+  if (typeof value === 'undefined') {
+    value = fallback;
+  }
+
+  return value;
+};
+
+helpers.getModuleName = function() {
+  return getProjectConfig('moduleName', '<%= pkg.name %>');
+};
+
+helpers.hasBower = function() {
+  return fs.existsSync(path.join(projectDir, 'bower.json'));
+};
+
+helpers.loadConfig = function(path) {
   var glob = require('glob');
   var object = {};
   var key = null;
 
   glob.sync('*', { cwd: path }).forEach(function(option) {
     key = option.replace(/\.js$/, '');
+
+    // if (['karma'].indexOf(key) === -1) { return; }
+
     object[key] = require('../' + path + option);
   });
 
   return object;
 };
 
-Helpers.cleanupModules = function(src, filepath) {
+helpers.getJshintRc = function() {
+  var jshintrcFile = getProjectConfig('jshintrc', path.join(projectDir, '.jshintrc'));
+  if (fs.existsSync(jshintrcFile)) {
+    return jshintrcFile;
+  } else {
+    return path.join(base, '.jshintrc');
+  }
+};
+
+function trim(str) {
+  return str.replace(/^\s+|\s+$/g, '');
+}
+
+helpers.cleanupModules = function(src, filepath) {
   /* Normalize line-feeds */
   src = grunt.util.normalizelf(src);
 
@@ -46,27 +128,47 @@ Helpers.cleanupModules = function(src, filepath) {
   src = src.replace(/[\s]*\/\* (jshint|global).*\n/g, '');
 
   /* Trim */
-  src = src.replace(/^\s+|\s+$/g, '');
+  src = trim(src);
 
   /* Indent */
   src = src.split(lf).map(function(line) {
-    return '  ' + line;
+    return trim(line).length ? '  ' + line : '';
   }).join(lf);
 
   return '  // ' + filepath + lf + src;
 };
 
-Helpers.getTemplate = function(name) {
-  return fs.readFileSync('./tasks/templates/' + name + '.tpl', 'utf8');
+helpers.getTemplate = function(name) {
+  var template = getProjectConfig('templates.' + name);
+  var fallback = './tasks/templates/' + name + '.tpl';
+  var templateFile = template ? path.resolve(projectDir, template) : fallback;
+
+  if (fs.existsSync(templateFile)) {
+    template = fs.readFileSync(templateFile, 'utf8');
+  }
+
+  return template;
 };
 
-function getScripts(env) {
+var resolveAssets = helpers.resolveAssets = function(filesGlobs) {
+  var files = [];
+
+  filesGlobs.forEach(function(fileGlob) {
+    glob.sync(fileGlob, {cwd: projectDir}).forEach(function(file) {
+      file = path.resolve(projectDir, file);
+      files.push(path.relative(projectDir, file));
+    });
+  });
+
+  return files;
+};
+
+function getScripts() {
   var scripts = '';
   var tag = '<script type="text/javascript" src=":src"></script>\n';
-  require('./files').environments[env].forEach(function(fileGlobs) {
-    glob.sync(fileGlobs).forEach(function(file) {
-      scripts += tag.replace(':src', '/' + file);
-    });
+
+  resolveAssets(getFiles('environments.demo')).forEach(function(file) {
+    scripts += tag.replace(':src', file);
   });
 
   return scripts;
@@ -75,15 +177,16 @@ function getScripts(env) {
 function getStyles() {
   var styles = '';
   var tag = '<link rel="stylesheet" type="text/css" href=":href" />\n';
-  require('./files').sourceStyle.forEach(function(file) {
-    styles += tag.replace(':href', '/' + file.replace('.less', '.css'));
+
+  resolveAssets(getFiles('src.less')).forEach(function(file) {
+    styles += tag.replace(':href', file.replace('.less', '.css'));
   });
 
   return styles;
 }
 
-Helpers.getIndex = function(dir, env, callback) {
-  fs.readFile(path.join(base, dir, 'index.html'), function(err, index) {
+helpers.getIndex = function(env, callback) {
+  fs.readFile(getFolder(env + 'Env', 'index.html'), function(err, index) {
     callback(index.toString()
       .replace('<!-- [[src/js]] -->', getScripts(env))
       .replace('<!-- [[src/less]] -->', getStyles())
@@ -91,4 +194,4 @@ Helpers.getIndex = function(dir, env, callback) {
   });
 };
 
-module.exports = Helpers;
+module.exports = helpers;

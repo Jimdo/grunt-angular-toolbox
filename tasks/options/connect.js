@@ -2,20 +2,22 @@ var optPort = require('grunt').option('port');
 var helpers = require('../helpers');
 var connectLess = require('connect-less');
 var mkdirp = require('mkdirp');
-var path = require('path');
-var base = process.cwd();
 
-var baseDirs = ['.', '.tmp'];
+var baseDirs = [
+  helpers.getFolder('internal.project'),
+  helpers.getFolder('internal.tmp')
+];
 
-mkdirp(path.join(base, '.tmp/demo'));
-mkdirp(path.join(base, '.tmp/src/less'));
+/* create temp folders for demos */
+mkdirp(helpers.getFolder('internal.tmp', 'demo/'));
+mkdirp(helpers.getFolder('internal.tmp', 'src/less/'));
 
-function middleware(dir, env) {
+function middleware(env) {
   return function(connect, options, middlewares) {
     /* Prepare index.html */
     middlewares.unshift(function addJs(req, res, next) {
       if (req.method === 'GET' && req.url === '/') {
-        helpers.getIndex(dir, env, function(index) {
+        helpers.getIndex(env, function(index) {
           res.end(index);
         });
         return;
@@ -25,7 +27,7 @@ function middleware(dir, env) {
 
     /* Handle style requests */
     middlewares.unshift(connectLess({
-      dst: path.join(base, '.tmp')
+      dst: helpers.getFolder('internal.tmp')
     }));
 
     return middlewares;
@@ -33,28 +35,28 @@ function middleware(dir, env) {
 }
 
 module.exports = {
-  options: {
-    hostname: '*'
-  },
   test: {
     options: {
+      hostname: '*',
       port: optPort || process.env.E2E_SANDBOX_PORT || 8765,
-      middleware: middleware('test/e2e/env', 'demo'),
-      base: baseDirs.concat('test/e2e/env')
+      middleware: middleware('e2e'),
+      base: baseDirs.concat(helpers.getFolder('e2eEnv'))
     }
   },
   demo: {
     options: {
+      hostname: '*',
       port: optPort || process.env.DEMO_PORT || 8000,
-      middleware: middleware('demo', 'demo'),
-      base: baseDirs.concat('demo'),
+      middleware: middleware('demo'),
+      base: baseDirs.concat(helpers.getFolder('demoEnv')),
       livereload: true
     }
   },
   coverage: {
     options: {
+      hostname: '*',
       port: optPort || process.env.COVERAGE_PORT || 7000,
-      base: path.join(base, '.tmp/coverage/lcov-report'),
+      base: helpers.getFolder('internal.tmp', 'coverage/lcov-report'),
       keepalive: true,
       open: true
     }

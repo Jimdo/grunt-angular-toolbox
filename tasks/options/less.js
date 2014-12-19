@@ -1,18 +1,30 @@
-var files = require('../files');
+var helpers = require('../helpers');
+var lessSrc = helpers.getFiles('src.less');
 
-var f = {};
-var fm = {};
-f[files.distStyle] = files.sourceStyle;
-fm[files.distStyleMin] = files.sourceStyle;
+var config = {
+  dist: {},
+  distmin: {}
+};
 
-module.exports = {
-  dist: {
-    files: f
-  },
-  distmin: {
+if (lessSrc) {
+  var dest = helpers.getFolder('dist', '<%= pkg.name %>.css');
+  config.dist = {
     options: {
+      sourceMap: true,
+      banner: helpers.getTemplate('banner')
+    },
+    src: lessSrc,
+    dest: dest
+  };
+
+  config.distmin = {
+    options: {
+      banner: helpers.getTemplate('bannerMin'),
       cleancss: true
     },
-    files: fm
-  }
-};
+    src: lessSrc,
+    dest: helpers.getFolder('dist', '<%= pkg.name %>.min.css')
+  };
+}
+
+module.exports = config;

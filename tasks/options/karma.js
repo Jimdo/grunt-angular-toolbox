@@ -1,7 +1,9 @@
-var files = require('../files');
+var helpers = require('../helpers');
 var DEFAULT_BROWSERS = 'Chrome,Firefox,PhantomJS';
 var browsers = process.env.KARMA_BROWSERS;
 var reporters = process.env.KARMA_REPORTERS;
+var coverageFolder = helpers.getFolder('internal.tmp', 'coverage/');
+
 
 module.exports = {
   options: {
@@ -16,16 +18,17 @@ module.exports = {
     coverageReporter: {
       reporters: [{
         type: 'lcov',
-        dir: '.tmp/coverage',
+        dir: coverageFolder,
         subdir: '.'
       }, {
-        dir: '.tmp/coverage',
+        dir: coverageFolder,
         type: 'text-summary'
       }]
     },
     reporters: (reporters || 'progress').split(',').concat('coverage'),
     singleRun: true,
-    files: files.environments.karma.concat([files.unitTests])
+    files: helpers.getFiles('environments.karma')
+      .concat(helpers.getFiles('test.unit'))
   },
   all: {
     options: {

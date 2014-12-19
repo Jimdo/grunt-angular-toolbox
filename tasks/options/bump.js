@@ -1,10 +1,10 @@
-var files = require('../files');
+var helpers = require('../helpers');
 
 module.exports = {
   options: {
-    files: files.package,
+    files: helpers.getFiles('internal.pkg'),
     updateConfigs: ['pkg'],
-    commitFiles: files.package.concat([files.dists]),
+    commitFiles: helpers.getFiles('internal.pkg').concat(helpers.getFolder('dist')),
     pushTo: 'origin'
   }
 };

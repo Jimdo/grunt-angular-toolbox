@@ -1,105 +1,11 @@
-Angular Directive Seed
-======================
+peons-angular
+=============
 
-[![Build Status](https://travis-ci.org/Jimdo/angular-directive-seed.png)](https://travis-ci.org/Jimdo/angular-directive-seed)
-[![Coverage Status](https://coveralls.io/repos/Jimdo/angular-directive-seed/badge.png?branch=master)](https://coveralls.io/r/Jimdo/angular-directive-seed?branch=master)
-[![devDependency Status](https://david-dm.org/Jimdo/angular-directive-seed/dev-status.svg)](https://david-dm.org/Jimdo/angular-directive-seed#info=devDependencies)
-
-Basically a clone of [angular seed](https://github.com/angular/angular-seed)  
-We striped out things we don't use and added Grunt
+Kind of [angular-directive-seed](https://github.com/Jimdo/angular-directive-seed/) v2.0 without scaffolding.
 
 
-Initialize
-----------
-
-	npm install
-
-
-Demo !
-------
-
-Start the demo server with `grunt demo` and go to [http://localhost:8000/demo/](http://localhost:8000/demo/).
-
-
-Make it yours
--------------
-
-#### Update bower and package infos
-
-You want to look at name, description, homepage, author, keywords, main and repository
-
-	├ bower.json
-	├ package.json
-
-
-#### Remove sample dist files from
-
-	├ dist/
-
-
-#### Do something awesome in the source files
-
-	├ src/
-
-
-#### And reflect your source files for build and test tasks!
-
-	├ tasks/
-	│ ├ files.js (source and sourceStyle)
-
-
-#### Set your module name to ngtemplates task
-
-	├ tasks/options/ngtemplates.js
-
-
-#### Write tests
-
-	├ test/
-
-
-#### Adjust the demo and end to end environment to your module and directive names
-
-	├ demo/
-	│ ├ index.html
-	│ ├ app.js
-	├ test/
-	│ ├ e2e/
-	│ │ ├ env/
-	│ │	│ ├ index.html
-	│ │ │ ├ app.js
-
-
-Grunt Tasks
------------
-
- * `grunt`: Execute tests
- * `grunt coverage`: Serve coverage report on port 7000
- * `grunt test`: Just test
- * `grunt test:e2e`: Just test end to end
- * `grunt test:unit`: Just test unit
- * `grunt tdd`: Watch source and test files and run tests
- * `grunt tdd:e2e`: Watch and test just end to end
- * `grunt tdd:unit`: Watch and test just unit
- * `grunt build`: Just build
- * `grunt release`: Test, build, bump patch version, commit, add version tag and push
-
- `test` tasks have a `--browsers` option to specify the browsers you want to use
- `test` tasks have also a `--reporters` option to specify the reporters you want to use
-
- Browsers can also be set by the following environment-variables
- ```
-   PROTRACTOR_BROWSERS=Firefox,Chrome
-   KARMA_BROWSERS=Firefox,PhantomJS
- ```
-
- Reporters can also be set by the following environment-variables
- ```
-   KARMA_REPORTERS=dots,osx
-   PROTRACTOR_REPORTERS=spec
- ```
-
-_See Gruntfile.js and tasks/options for all task details._
+Yet to be documented...
+-----------------------
 
 
 LICENSE

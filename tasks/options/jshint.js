@@ -1,9 +1,12 @@
-var files = require('../files');
+var helpers = require('../helpers');
 
 module.exports = {
-  files: files.source.concat([files.grunt, files.unitTests]),
+  files: helpers.getFiles('src.js')
+    .concat(helpers.getFiles('test.unit'))
+    .concat(helpers.getFiles('test.e2e'))
+    .concat(helpers.getFiles('jshintme') || []),
   options: {
     ignores: ['**/*.coffee'],
-    jshintrc: true
+    jshintrc: helpers.getJshintRc()
   }
 };

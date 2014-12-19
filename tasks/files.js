@@ -1,52 +1,109 @@
-var _ = require('grunt').util._;
-var files = {
-  grunt: 'Gruntfile.js',
+/* global __dirname */
+var util = require('grunt').util;
+var _ = util._;
+var path = require('path');
+var helpers = require('./helpers');
+var getProjectConfig = helpers.getProjectConfig;
+var files = {};
 
-  source: [
-    'src/js/helper.module.js',
-    'src/js/!(helper.module)*.js'
-  ],
-  sourceStyle: [
-    'src/less/style.less'
-  ],
 
-  distStyle: 'dist/<%= pkg.name %>.css',
-  distStyleMin: 'dist/<%= pkg.name %>.min.css',
-  dist: 'dist/<%= pkg.name %>.js',
-  distMin: 'dist/<%= pkg.name %>.min.js',
-  dists: 'dist/*',
+/* SRC
+ ***************/
+files.src = {};
 
-  partialsDir: 'src/partials',
-  allHTML: '*.html',
-  allPartials: 'src/partials/*.html',
-  allPartialsCombined: '.tmp/all-partials.js',
+files.src.js = getProjectConfig('files.src.js', [
+  'src/js/helper.module.js',
+  'src/js/**/!(helper)*.js'
+]);
 
-  unitTests: ['test/unit/SpecHelper.+(js|coffee)', 'test/unit/**/*Spec.+(js|coffee)'],
-  e2eTests: ['test/e2e/SpecHelper.+(js|coffee)', 'test/e2e/*Spec.+(js|coffee)'],
+files.src.less = getProjectConfig('files.src.less', [
+  'src/less/**/*.less'
+]);
 
-  environments: {},
+files.src.partialsFolder = getProjectConfig('files.src.partialsFolder', 'src/partials/');
 
-  demo: 'demo/*',
 
-  'package': ['package.json', 'bower.json']
-};
+/* VENDOR
+ ***************/
+files.vendor = {};
+
+files.vendor.js = getProjectConfig('files.vendor.js') || [];
+files.vendor.css = getProjectConfig('files.vendor.css') || [];
+
+
+/* TEST FILES
+ ***************/
+files.test = {};
+
+files.test.unit = getProjectConfig('files.test.unit', [
+  'test/unit/SpecHelper.+(js|coffee)',
+  'test/unit/**/*Spec.+(js|coffee)'
+]);
+
+files.test.e2e = getProjectConfig('files.test.e2e', [
+  'test/e2e/SpecHelper.+(js|coffee)',
+  'test/e2e/**/*Spec.+(js|coffee)'
+]);
+
+
+/* DEMO FOLDER
+ ***************/
+files.demoEnvFolder = getProjectConfig('files.demoEnvFolder', 'demo/');
+
+
+/* E2E DEMO FOLDER
+ ***************/
+files.e2eEnvFolder = getProjectConfig('files.e2eEnvFolder', 'test/e2e/env/');
+
+
+/* DIST FOLDER
+ ***************/
+files.distFolder = getProjectConfig('files.distFolder', 'dist/');
+
+
+/* INTERNAL
+ ***************/
+files.internal = {};
+
+var projectFolder = files.internal.projectFolder = helpers.config.projectDir;
+
+var baseFolder = files.internal.baseFolder = path.resolve(__dirname, '../');
+
+var tmpFolder = files.internal.tmpFolder = path.join(baseFolder, '.tmp/');
+
+files.internal.pkg = ['package.json'];
+if (helpers.hasBower()) {
+  files.internal.pkg.push('bower.json');
+}
+
+var ngTemplates = files.internal.ngTemplates = path.relative(
+  projectFolder,
+  path.join(tmpFolder, 'ng_templates.js')
+);
+
+
+/* ENVIRONMENTS
+ ***************/
+files.environments = {};
+
+var bower = path.join(baseFolder, 'bower_components/');
 
 var baseEnvironment = [].concat(
-  'bower_components/angular/angular.js',
-  files.source,
-  files.allPartialsCombined
+  path.join(bower, 'angular/angular.js'),
+  files.src.js,
+  ngTemplates
 );
 
 var demoEnvironment = _.clone(baseEnvironment);
 var karmaEnvironment = _.clone(baseEnvironment);
 
-karmaEnvironment.unshift('bower_components/jasmine-moar-matchers/lib/*.js');
-karmaEnvironment.push('bower_components/angular-mocks/angular-mocks.js');
-
+karmaEnvironment.unshift(path.join(bower, '/jasmine-moar-matchers/lib/*.js'));
+karmaEnvironment.push(path.join(bower, '/angular-mocks/angular-mocks.js'));
 
 files.environments.demo = demoEnvironment;
 files.environments.karma = karmaEnvironment;
 
-if (typeof module === 'object') {
-  module.exports = files;
-}
+
+/* EXPORTSCHLAGER
+ ***************/
+module.exports = files;
