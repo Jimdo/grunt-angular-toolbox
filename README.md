@@ -1,6 +1,8 @@
 peons-angular
 =============
 
+[![Dependency Status](https://david-dm.org/Jimdo/peons-angular.svg)](https://david-dm.org/Jimdo/peons-angular)
+
 _A mob of little green minions to help you with daily angular work_
 
 Or: An opinionated, preconfigured and extendible selection of super awesome grunt tasks
