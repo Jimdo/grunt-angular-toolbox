@@ -139,6 +139,9 @@ peons.config = {
   // contributor with the most commits
   dynamicAuthor: false,
   
+  // customize the demo/test environment files
+  envFilter: function(env) { return env; },
+
   // customize project structure
   files: {
     src: {
@@ -151,8 +154,13 @@ peons.config = {
       ],
       partialsFolder: 'src/partials/'
     },
+    // additional vendor files for tests and demos that won't be shipped within dist
     vendor: {
-      js: [],
+      js: {
+        top: [],
+        angularModules: [],
+        bottom: []
+      },
       css: [],
     },
     test: {
