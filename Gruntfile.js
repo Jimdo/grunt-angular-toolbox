@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     bump: {
@@ -14,6 +15,11 @@ module.exports = function(grunt) {
         abortIfDirty: true,
         tag: 'latest'
       }
+    },
+    shell: {
+      testpeons: {
+        command: 'node ./bin/peons test && node ./bin/peons build'
+      }
     }
   });
 
@@ -22,6 +28,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('release', 'Build, bump and publish to NPM.', function(type) {
     grunt.task.run([
+      'shell:testpeons',
       'bump:' + (type || 'patch'),
       'npm-publish'
     ]);
