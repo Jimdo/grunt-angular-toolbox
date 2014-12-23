@@ -1,6 +1,7 @@
 peons-angular
 =============
 
+[![Build Status](https://travis-ci.org/Jimdo/peons-angular.svg)](https://travis-ci.org/Jimdo/peons-angular)
 [![Dependency Status](https://david-dm.org/Jimdo/peons-angular.svg)](https://david-dm.org/Jimdo/peons-angular)
 
 _A mob of little green minions to help you with daily angular work_
