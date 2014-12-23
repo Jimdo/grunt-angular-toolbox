@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     },
     shell: {
       testpeons: {
-        command: 'node ./bin/peons test && node ./bin/peons build'
+        command: 'node ./bin/peons test --reporter=spec && node ./bin/peons build'
       }
     }
   });
@@ -26,9 +26,11 @@ module.exports = function(grunt) {
   /* Load grunt tasks from NPM packages */
   require('load-grunt-tasks')(grunt);
 
+  grunt.registerTask('test', ['shell:testpeons']);
+
   grunt.registerTask('release', 'Build, bump and publish to NPM.', function(type) {
     grunt.task.run([
-      'shell:testpeons',
+      'test',
       'bump:' + (type || 'patch'),
       'npm-publish'
     ]);
