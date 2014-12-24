@@ -64,4 +64,11 @@ describe('Setup', function() {
     expect(window.$timeout).toBe('fooBar');
     window.$timeout = previousTimeout;
   });
+
+  describe('untested service', function() {
+    it('should return foo', function() {
+      initGlobals();
+      expect(window.$injector.get('untested').thisIsNotTestedInE2e('foo')).toBe('foo');
+    });
+  });
 });
