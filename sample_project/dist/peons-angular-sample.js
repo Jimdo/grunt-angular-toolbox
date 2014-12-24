@@ -23,6 +23,18 @@
     };
   });
 
+  // src/js/service.unused.js
+  myModule.factory('untested', function() {
+    return {
+      thisIsNotTestedInE2e: function(foo) {
+        return foo;
+      },
+      thisIsNotTestedInUnit: function(bar) {
+        return bar;
+      }
+    };
+  });
+
   // /Users/hannesdiercks/Sites/peons-angular/.tmp/ng_templates.js
   angular.module('peons-angular-sample').run(['$templateCache', function($templateCache) {
     'use strict';
