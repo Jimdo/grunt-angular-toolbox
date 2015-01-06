@@ -1,6 +1,8 @@
 grunt-angular-toolbox
 =====================
 
+[![Build Status](https://travis-ci.org/Jimdo/grunt-angular-toolbox.svg)](https://travis-ci.org/Jimdo/grunt-angular-toolbox)
+
 Collection of grunt tasks and optional opinionated configuration
 for development of small and mid-sized angular modules.
 
