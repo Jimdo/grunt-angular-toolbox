@@ -1,7 +1,0 @@
-#!/usr/bin/env node
-/**
- * Internal replacement for peons-cli
- * in order to run peons of the internal sample project
- */
-process.chdir('sample_project/');
-require('../lib/index').cli();

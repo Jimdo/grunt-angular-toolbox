@@ -12,7 +12,7 @@ describe('Setup', function() {
 
   it('should be able to find the angular module', function() {
     initGlobals();
-    expect(angular.module('peons-angular-sample')).toBeDefined();
+    expect(angular.module('grunt-angular-toolbox-sample')).toBeDefined();
   });
 
   it('should be able to create a directive', function() {

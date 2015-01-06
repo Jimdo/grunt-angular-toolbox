@@ -1,12 +1,12 @@
 {
-  "name": "peons-angular",
+  "name": "grunt-angular-toolbox",
   "version": "0.0.0",
   "authors": [
     "Hannes Diercks <hannes.diercks@jimdo.com>",
     "Joscha Feth <joscha@feth.com>",
     "Hauke Stange <hauke@jimdo.com>"
   ],
-  "description": "grunt based peons for angular projects",
+  "description": "collection of grunt tasks and optional opinionated configuration",
   "keywords": [
     "angular",
     "grunt",

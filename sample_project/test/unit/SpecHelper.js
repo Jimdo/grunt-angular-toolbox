@@ -36,7 +36,7 @@ function initGlobals(withModule, additional) {
 
   if (withModule !== false) {
     /* Initiate the main module */
-    module('peons-angular-sample');
+    module('grunt-angular-toolbox-sample');
   }
 
   inject(function($injector) {

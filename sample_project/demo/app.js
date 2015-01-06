@@ -1,1 +1,1 @@
-angular.bootstrap(document, ['peons-angular-sample']);
+angular.bootstrap(document, ['grunt-angular-toolbox-sample']);

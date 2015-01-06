@@ -1,17 +1,17 @@
 /*!
- * peons-angular-sample v
- * https://github.com/Jimdo/peons-angular/tree/master/sample_project
+ * grunt-angular-toolbox-sample v0.0.0
+ * https://github.com/Jimdo/grunt-angular-toolbox/tree/master/sample_project
  *
- * sample project for peons-angular
+ * sample project for grunt-angular-toolbox
  *
- * Copyright 2014, 
+ * Copyright 2015, 
  * Released under the MIT license
  */
 (function(angular, undefined) {
   'use strict';
 
   // src/js/helper.module.js
-  var myModule = angular.module('peons-angular-sample', []);
+  var myModule = angular.module('grunt-angular-toolbox-sample', []);
 
   // src/js/directive.directive.js
   myModule.directive('myDirective', function() {
@@ -36,7 +36,7 @@
   });
 
   // /Users/hannesdiercks/Sites/peons-angular/.tmp/ng_templates.js
-  angular.module('peons-angular-sample').run(['$templateCache', function($templateCache) {
+  angular.module('grunt-angular-toolbox-sample').run(['$templateCache', function($templateCache) {
     'use strict';
 
     $templateCache.put('directive.html',

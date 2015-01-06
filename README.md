@@ -1,34 +1,73 @@
-peons-angular
-=============
+grunt-angular-toolbox
+=====================
 
-[![Build Status](https://travis-ci.org/Jimdo/peons-angular.svg)](https://travis-ci.org/Jimdo/peons-angular)
-[![Dependency Status](https://david-dm.org/Jimdo/peons-angular.svg)](https://david-dm.org/Jimdo/peons-angular)
+Collection of grunt tasks and optional opinionated configuration
+for development of small and mid-sized angular modules.
 
-_A mob of little green minions to help you with daily angular work_
-
-Or: An opinionated, preconfigured and extendible selection of super awesome grunt tasks
+Like:
+ - [angular-fontselect](https://github.com/Jimdo/angular-fontselect)
 
 
 Install
 -------
 
 ```sh
-npm install peons-angular --save-dev
+npm install grunt-angular-toolbox --save-dev
 ```
 
-and once:
+Use
+---
 
-```sh
-npm install -g peons-cli
+```js
+// Gruntfile.js
+module.exports = function(grunt) {
+  'use strict';
+
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    'angular-toolbox': { /* see config */ }
+    /* project specific configuration here */
+  });
+
+  /* load angular-toolbox collection 
+     see Included 3rd party tasks */
+  grunt.loadNpmTasks('grunt-angular-toolbox');
+
+  /* specify the preconfigured tasks that 
+     should be used in the project */
+  require('grunt-angular-toolbox').addTasks([
+    'build',
+    'coverage',
+    'demo',
+    'demo:e2e',
+    'release',
+    'tdd',
+    'test'
+  ]);
+
+  /* custom tasks and hooks */
+  grunt.registerTask('default', ['test']);
+  grunt.registerTask('build:after', function() {
+    grunt.log.ok('work complete!');
+  });
+};
 ```
 
 
 Tasks
 -----
 
-### `peons test[:(unit|e2e)]` - default
+Depending on the tasks added by [addTasks](#use) these grunts are available
+in the project.
 
-Run both or the specified test suite.
+```sh
+#see this list by using
+grunt --help
+``` 
+
+### $ `grunt test[:(unit|e2e)]`
+
+Run the tests.
 
 __Environment Variables__:  
  - `E2E_SANDBOX_PORT` change port (default: 8765)
@@ -41,13 +80,13 @@ __Options__:
  - `--browsers` change browsers for current suite(s)
  - `--reporters` change reporters for current suite(s)
 
-### `peons tdd[:(unit|e2e)]`
-Start watchers on src and test files and run specified suites on every file change.
+### $ `grunt tdd[:(unit|e2e)]`
+Run the tests and rerun on src changes
 
 Same __Environment Variables__ and __Options__ as the test task.
 
-### `peons demo[:e2e]`
-Serve the demo or e2e sandbox.
+### $ `grunt demo[:e2e]`
+Serve demo or e2e standbox application
 
 __Environment Variables__:  
  - `DEMO_PORT` change port (default: 8000)
@@ -56,10 +95,8 @@ __Environment Variables__:
 __Options__:  
  - `--port` change port of current task
 
-### `peons coverage`
-Serve coverage report, requires `peons test:unit` to have been run once.
-
-Right now we only support coverage of unit tests
+### $ `grunt coverage`
+Serve coverage report, requires `grunt test:unit` to have been run once.
 
 __Environment Variables__:  
  - `COVERAGE_PORT` change port (default: 7000)
@@ -67,14 +104,14 @@ __Environment Variables__:
 __Options__:  
  - `--port` change port
 
-### `peons build`
+### $ `grunt build`
 Concatenate, annotate and minify JavaScript and less files
 
-### `peons release`
+### $ `grunt release`
 Run tests, (if successful) bump version build project, commit changes and push to origin
 
 
-Assumed project structure
+Default project structure
 -------------------------
 
 ```
@@ -101,29 +138,10 @@ Assumed project structure
  ├ .jshintrc (optional)
  ├ bower.json (optional)
  ├ package.json
- └ peonsfile.js|coffee
+ └ Gruntfile.js|coffee
 ```
 
-
-Peonsfile
----------
-
-Can be js or coffe, has to be in your project root.
-
-If you do not want to add custom tasks, use hooks or change config
-this file is still needed in order to find the root of your project.
-
-```js
-// peonsfile.js
-
-// register custom tasks or hooks here see hooks
-var peons = function(grunt) {};
-
-// customize project structure, see config
-peons.config = {};
-
-module.exports = peons;
-```
+This is customizable via the [config](#config)
 
 
 Config
@@ -132,95 +150,105 @@ Config
 Values are defaults or explanations. 
 
 ```js
-// peonsfile.js
-var peons = function(grunt) {};
+// Gruntfile.js
+module.exports = function(grunt) {
+  'use strict';
 
-peons.config = {
-  // whether or not the author in package.json should be set to the
-  // contributor with the most commits
-  dynamicAuthor: false,
-  
-  // customize the demo/test environment files
-  envFilter: function(env) { return env; },
+  grunt.initConfig({
+    'angular-toolbox': {
+      // whether or not the author in package.json should be set to the
+      // contributor with the most commits
+      dynamicAuthor: false,
+      
+      // customize the demo/test environment files
+      envFilter: function(env) { return env; },
 
-  // customize project structure
-  files: {
-    src: {
-      js: [
-        'src/js/helper.module.js',
-        'src/js/**/!(helper)*.js'
-      ],
-      less: [
-        'src/less/**/*.less'
-      ],
-      partialsFolder: 'src/partials/'
-    },
-    // additional vendor files for tests and demos that won't be shipped within dist
-    vendor: {
-      js: {
-        top: [],
-        angularModules: [],
-        bottom: []
+      // customize project structure
+      files: {
+        src: {
+          js: [
+            'src/js/helper.module.js',
+            'src/js/**/!(helper)*.js'
+          ],
+          less: [
+            'src/less/**/*.less'
+          ],
+          partialsFolder: 'src/partials/'
+        },
+        // additional vendor files for tests and demos that 
+        // won't be shipped within dist
+        vendor: {
+          js: {
+            top: [],
+            angularModules: [],
+            bottom: []
+          },
+          css: [],
+        },
+        test: {
+          unit: [
+            'test/unit/SpecHelper.+(js|coffee)',
+            'test/unit/**/*Spec.+(js|coffee)'
+          ],
+          e2e: [
+            'test/e2e/SpecHelper.+(js|coffee)',
+            'test/e2e/**/*Spec.+(js|coffee)'
+          ]
+        },
+        demoEnvFolder: 'demo/',
+        e2eEnvFolder: 'test/e2e/env/',
+        distFolder: 'dist/'
       },
-      css: [],
-    },
-    test: {
-      unit: [
-        'test/unit/SpecHelper.+(js|coffee)',
-        'test/unit/**/*Spec.+(js|coffee)'
-      ],
-      e2e: [
-        'test/e2e/SpecHelper.+(js|coffee)',
-        'test/e2e/**/*Spec.+(js|coffee)'
-      ]
-    },
-    demoEnvFolder: 'demo/',
-    e2eEnvFolder: 'test/e2e/env/',
-    distFolder: 'dist/'
-  },
 
-  // custom path for your jshintrc
-  jshintrc: '.jshintrc of your project or default from peons-angular',
+      // custom path for your jshintrc
+      jshintrc: '.jshintrc',
 
-  // how much commits make a maintainer?
-  maintainersThreshold: 15,
+      // how much commits make a maintainer?
+      maintainersThreshold: 15,
 
-  // the angular module name in case it differs from project name 
-  moduleName: '"name" from package.json',
+      // the angular module name in case it differs from project name 
+      moduleName: '"name" from package.json',
 
-  // banners an wraps for generated dist files (can be paths or strings)
-  templates: {
-    banner: 'see lib/templates',
-    bannerMin: 'see lib/templates',
-    wrapTop: '(function(angular, undefined) {\n\  'use strict\';\n',
-    wrapBottom: '\n})(window.angular);',
-  }
-}
+      // banners an wraps for generated dist files (can be paths or strings)
+      templates: {
+        banner: 'lib/templates/banner.tpl',
+        bannerMin: 'lib/templates/bannerMin.tpl',
+        wrapTop: 'lib/templates/wrapTop.tpl',
+        wrapBottom: 'lib/templates/wrapBottom.tpl'
+      }
+    }
 
-module.exports = peons;
+    /* additional configuration ... */
+  });
+
+  /* rest of gruntfile ... */
+};
 ```
 
 
 Custom tasks and hooks
 ----------------------
 
-In case your project needs custom tasks and or setup before tasks done by peons
-you can register them here. It's all just grunt.
+Register custom tasks and or setup before the added tasks run.
 
 ```js
-// peonsfile.js
+// Gruntfile.js
+module.exports = function(grunt) {
+  'use strict';
 
-var peons = function(grunt) {
-  // add any custom tasks (peons sayYolo is now available)
+  grunt.initConfig({ /* ... */ });
+
+  /* initiation of tasks ... */
+
+  /* add any custom tasks */
   grunt.registerTask('sayYolo', function() {
     console.log('YOLO!');
   });
 
-  // hook it into existing ones.
+  /* hook it into tooling tasks ones.
+     this will be called before all other release tasks */
   grunt.registerTask('release:before', ['sayYolo']);
 };
-
-module.exports = peons;
 ```
 
 ### Hooks
@@ -241,6 +269,28 @@ module.exports = peons;
  - build:after
  - release:before
  - release:after
+
+
+Included 3rd party tasks
+------------------------
+
+ - [grunt-angular-templates](https://github.com/ericclemmons/grunt-angular-templates)
+ - [grunt-bump](https://github.com/vojtajina/grunt-bump)
+ - [grunt-concurrent](https://github.com/sindresorhus/grunt-concurrent)
+ - [grunt-contrib-concat](https://github.com/gruntjs/grunt-contrib-concat)
+ - [grunt-contrib-connect](https://github.com/gruntjs/grunt-contrib-connect)
+ - [grunt-contrib-jshint](https://github.com/gruntjs/grunt-contrib-jshint)
+ - [grunt-contrib-less](https://github.com/gruntjs/grunt-contrib-less)
+ - [grunt-contrib-uglify](https://github.com/gruntjs/grunt-contrib-uglify)
+ - [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch)
+ - [grunt-coveralls](https://github.com/pimterry/grunt-coveralls)
+ - [grunt-istanbul](https://github.com/taichi/grunt-istanbul)
+ - [grunt-karma](https://github.com/karma-runner/grunt-karma)
+ - [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)
+ - [grunt-npm](https://github.com/Xiphe/grunt-npm/)
+ - [grunt-protractor-coverage](https://github.com/r3b/grunt-protractor-coverage)
+ - [grunt-protractor-webdriver](https://github.com/seckardt/grunt-protractor-webdriver)
+ - [grunt-shell](https://github.com/sindresorhus/grunt-shell)
 
 
 LICENSE

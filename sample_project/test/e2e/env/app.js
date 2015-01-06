@@ -1,3 +1,3 @@
-angular.module('e2eApp', ['peons-angular-sample']).run(function(untested) {
+angular.module('e2eApp', ['grunt-angular-toolbox-sample']).run(function(untested) {
   untested.thisIsNotTestedInUnit('lorem');
 });

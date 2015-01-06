@@ -1,5 +1,4 @@
 .tmp
-bin
 bower_components
 node_modules
 sample_project
