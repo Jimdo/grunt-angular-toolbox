@@ -54,7 +54,6 @@
     "coffee-script": "~1.8.0",
     "connect-less": "^0.3.1",
     "del": "^1.1.0",
-    "findup-sync": "^0.2.1",
     "glob": "~4.3.1",
     "jasmine-spec-reporter": "^1.1.0",
     "karma-chrome-launcher": "~0.1.6",
