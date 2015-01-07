@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     },
     shell: {
       test: {
-        command: 'cd sample_project && grunt test'
+        command: 'cd sample_project && ../node_modules/.bin/grunt test'
       }
     }
   });
