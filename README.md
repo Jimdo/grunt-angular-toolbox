@@ -106,6 +106,9 @@ __Environment Variables__:
 __Options__:  
  - `--port` change port
 
+### $ `grunt coveralls`
+Send coverage report to coveralls, requires `grunt test:unit` to have been run once.
+
 ### $ `grunt build`
 Concatenate, annotate and minify JavaScript and less files
 
