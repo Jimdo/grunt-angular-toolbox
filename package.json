@@ -48,6 +48,7 @@
     "grunt-ng-annotate": "^0.8.0",
     "grunt-npm": "https://github.com/Xiphe/grunt-npm/tarball/98187270151e53d45214d778de394a557e81958c",
     "grunt-protractor-coverage": "^0.2.13",
+    "grunt-protractor-runner": "^1.1.4",
     "grunt-protractor-webdriver": "^0.2.0",
     "grunt-shell": "~1.1.1"
   }

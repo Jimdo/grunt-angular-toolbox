@@ -81,6 +81,8 @@ __Environment Variables__:
 __Options__:  
  - `--browsers` change browsers for current suite(s)
  - `--reporters` change reporters for current suite(s)
+ - `--no-coverage` disable coverage reports and instrumentation (useful for debugging)
+ - `--no-jshint` disable jshint (useful for debugging)
 
 ### $ `grunt tdd[:(unit|e2e)]`
 Run the tests and rerun on src changes
