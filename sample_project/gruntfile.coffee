@@ -6,4 +6,3 @@ module.exports = (grunt) ->
   });
 
   require('../tasks/collection');
-  require('../lib/index').addTasks()

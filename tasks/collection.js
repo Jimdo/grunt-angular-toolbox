@@ -6,6 +6,8 @@ var basepath = path.resolve(__dirname, '..');
 var dependencies = require('../package.json').dependencies;
 var dependency;
 var tasksDir;
+var tasks = grunt.config('angular-toolbox').tasks;
+
 
 grunt.verbose.subhead('Registering subtasks of "grunt-angular-toolbox"...');
 
@@ -20,5 +22,10 @@ for (dependency in dependencies) {
 
 grunt.verbose.writeln();
 grunt.verbose.write('Subtasks of "grunt-angular-toolbox"...');
+grunt.verbose.writeln('OK'.green);
+grunt.verbose.writeln();
+
+grunt.verbose.write('Configuring grunt-angular-toolbox tasks...');
+require('../lib/index').addTasks(tasks);
 grunt.verbose.writeln('OK'.green);
 grunt.verbose.writeln();

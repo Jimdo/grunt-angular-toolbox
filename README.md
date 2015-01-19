@@ -36,18 +36,6 @@ module.exports = function(grunt) {
      see Included 3rd party tasks */
   grunt.loadNpmTasks('grunt-angular-toolbox');
 
-  /* specify the preconfigured tasks that 
-     should be used in the project */
-  require('grunt-angular-toolbox').addTasks([
-    'build',
-    'coverage',
-    'demo',
-    'demo:e2e',
-    'release',
-    'tdd',
-    'test'
-  ]);
-
   /* custom tasks and hooks */
   grunt.registerTask('default', ['test']);
   grunt.registerTask('build:after', function() {
@@ -164,6 +152,19 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     'angular-toolbox': {
+        /* specify the preconfigured tasks that 
+         should be used in the project */
+      tasks: [
+        'build',
+        'coverage',
+        'coveralls',
+        'demo',
+        'demo:e2e',
+        'release',
+        'tdd',
+        'test'
+      ],
+      
       // whether or not the author in package.json should be set to the
       // contributor with the most commits
       dynamicAuthor: false,
