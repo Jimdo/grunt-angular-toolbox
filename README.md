@@ -215,6 +215,13 @@ module.exports = function(grunt) {
       // how much commits make a maintainer?
       maintainersThreshold: 15,
 
+      // custom middleware for e2e or demo server
+      // can also be an array of middleware
+      middleware: {
+        e2e: function(req, res, next) { next(); },
+        demo: function(req, res, next) { next(); }
+      },
+
       // the angular module name in case it differs from project name 
       moduleName: '"name" from package.json',
 
