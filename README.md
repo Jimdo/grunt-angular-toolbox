@@ -100,8 +100,9 @@ __Options__:
 ### $ `grunt coveralls`
 Send coverage report to coveralls, requires `grunt test:unit` to have been run once.
 
-### $ `grunt build`
+### $ `grunt build[:watch]`
 Concatenate, annotate and minify JavaScript and less files
+Optionally watch the `src` files and rebuild on change
 
 ### $ `grunt release`
 Run tests, (if successful) bump version build project, commit changes and push to origin
