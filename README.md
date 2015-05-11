@@ -101,7 +101,7 @@ __Options__:
 Send coverage report to coveralls, requires `grunt test:unit` to have been run once.
 
 ### $ `grunt build[:watch]`
-Concatenate, annotate and minify JavaScript and less files
+Concatenate, annotate and minify JavaScript and less/sass files
 Optionally watch the `src` files and rebuild on change
 
 ### $ `grunt release`
@@ -121,8 +121,10 @@ Default project structure
  │ │ └ helper.module.js (initiator of angular module)
  │ ├ less/
  │ │ └ *.less (project related less files)
- │ └ partials/
- │   └ *.html (views for directives)
+ │ ├ partials/
+ │ │ └ *.html (views for directives)
+ │ └ sass/
+ │   └ *.scss (project related sass files)
  ├ test/
  │ ├ e2e/
  │ │ ├ env/
@@ -182,6 +184,9 @@ module.exports = function(grunt) {
           ],
           less: [
             'src/less/**/*.less'
+          ],
+          sass: [
+            'src/sass/**/*.scss'
           ],
           partialsFolder: 'src/partials/'
         },
@@ -296,6 +301,7 @@ Included 3rd party tasks
  - [grunt-concurrent](https://github.com/sindresorhus/grunt-concurrent)
  - [grunt-contrib-concat](https://github.com/gruntjs/grunt-contrib-concat)
  - [grunt-contrib-connect](https://github.com/gruntjs/grunt-contrib-connect)
+ - [grunt-contrib-cssmin](https://github.com/gruntjs/grunt-contrib-cssmin)
  - [grunt-contrib-jshint](https://github.com/gruntjs/grunt-contrib-jshint)
  - [grunt-contrib-less](https://github.com/gruntjs/grunt-contrib-less)
  - [grunt-contrib-uglify](https://github.com/gruntjs/grunt-contrib-uglify)
@@ -307,6 +313,7 @@ Included 3rd party tasks
  - [grunt-npm](https://github.com/Xiphe/grunt-npm/)
  - [grunt-protractor-coverage](https://github.com/r3b/grunt-protractor-coverage)
  - [grunt-protractor-webdriver](https://github.com/seckardt/grunt-protractor-webdriver)
+ - [grunt-sass](https://github.com/sindresorhus/grunt-sass)
  - [grunt-shell](https://github.com/sindresorhus/grunt-shell)
 
 
