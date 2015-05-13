@@ -37,7 +37,7 @@
     "connect-less": "^0.3.1",
     "del": "^1.1.1",
     "findup-sync": "^0.2.1",
-    "glob": "^5.0.5",
+    "glob": "^5.0.6",
     "grunt-angular-templates": "~0.5.7",
     "grunt-bump": "0.3.1",
     "grunt-concurrent": "^1.0.0",
@@ -58,11 +58,11 @@
     "grunt-sass": "^1.0.0",
     "grunt-shell": "~1.1.2",
     "grunt-update-contributors": "0.0.1",
-    "jasmine-spec-reporter": "^2.1.0",
-    "karma-chrome-launcher": "^0.1.8",
+    "jasmine-spec-reporter": "^2.2.1",
+    "karma-chrome-launcher": "^0.1.12",
     "karma-coffee-preprocessor": "^0.2.1",
     "karma-coverage": "^0.3.1",
-    "karma-firefox-launcher": "^0.1.4",
+    "karma-firefox-launcher": "^0.1.6",
     "karma-html2js-preprocessor": "^0.1.0",
     "karma-jasmine": "^0.3.5",
     "karma-phantomjs-launcher": "^0.1.4",
@@ -71,7 +71,7 @@
     "karma-spec-reporter": "0.0.19",
     "load-grunt-tasks": "^3.1.0",
     "mkdirp": "^0.5.0",
-    "node-sass-middleware": "^0.5.0",
+    "node-sass-middleware": "^0.6.0",
     "protractor": "^2.0.0"
   }
 }
