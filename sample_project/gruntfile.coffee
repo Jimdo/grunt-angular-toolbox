@@ -2,7 +2,9 @@ module.exports = (grunt) ->
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json')
-    'angular-toolbox': {}
+    'angular-toolbox': {
+      jshintrc: true
+    }
   });
 
   require('../tasks/collection');

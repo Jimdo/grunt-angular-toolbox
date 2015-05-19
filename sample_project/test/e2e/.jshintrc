@@ -1,0 +1,12 @@
+{
+	"extends": "../.jshintrc",
+	"browser": false,
+	"node": true,
+	"predef": [
+		"protractor",
+		"global",
+		"browser",
+		"element",
+		"by"
+	]
+}

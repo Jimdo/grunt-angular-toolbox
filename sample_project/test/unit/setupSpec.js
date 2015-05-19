@@ -1,5 +1,5 @@
 /* global initGlobals, createDirective, $timeout, $q */
-describe('Setup', function() {
+describe('Setup', function() { // jshint ignore: line
   'use strict';
 
   it('should be able to execute tests.', function() {
