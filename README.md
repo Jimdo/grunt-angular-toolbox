@@ -15,6 +15,8 @@ Install
 -------
 
 ```sh
+npm install grunt --save-dev
+npm install grunt-cli --save-dev
 npm install grunt-angular-toolbox --save-dev
 ```
 
