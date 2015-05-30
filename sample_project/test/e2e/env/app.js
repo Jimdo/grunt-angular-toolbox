@@ -1,5 +1,5 @@
 (function(angular) {
-  angular.module('e2eApp', ['grunt-angular-toolbox-sample']).run(function(untested) {
+  angular.module('e2eApp', ['gruntAngularToolboxSample']).run(function(untested) {
     untested.thisIsNotTestedInUnit('lorem');
   });
 })(window.angular);
