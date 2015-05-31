@@ -12,6 +12,8 @@ env:
 
 install:
   - npm install
+  - cd sample_project
+  - ../node_modules/.bin/bower install
 
 before_script:
   - export DISPLAY=:99.0

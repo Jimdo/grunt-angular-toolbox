@@ -23,7 +23,6 @@
     "url": "https://github.com/Jimdo/grunt-angular-toolbox.git"
   },
   "scripts": {
-    "install": "cd sample_project && bower install",
     "test": "grunt test"
   },
   "license": "MIT",
