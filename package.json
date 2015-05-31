@@ -1,6 +1,6 @@
 {
   "name": "grunt-angular-toolbox",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "collection of grunt tasks and optional opinionated configuration",
   "homepage": "https://github.com/Jimdo/grunt-angular-toolbox",
   "author": "Jimdo GmbH",
