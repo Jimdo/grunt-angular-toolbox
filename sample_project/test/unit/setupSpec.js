@@ -50,9 +50,12 @@ describe('Setup', function() { // jshint ignore: line
     expect($timeout).toBeDefined();
   });
 
-  it('should throw if we try to initiate a directive without having globals', function() {
-    expect(createDirective).toThrow();
-  });
+  it(
+    'should throw if we try to initiate a directive without having globals',
+    function() {
+      expect(createDirective).toThrow();
+    }
+  );
 
   var previousTimeout = window.$timeout;
   it('should keep the global namespace intact part 1', function() {
@@ -68,7 +71,9 @@ describe('Setup', function() { // jshint ignore: line
   describe('untested service', function() {
     it('should return foo', function() {
       initGlobals();
-      expect(window.$injector.get('untested').thisIsNotTestedInE2e('foo')).toBe('foo');
+      expect(
+        window.$injector.get('untested').thisIsNotTestedInE2e('foo')
+      ).toBe('foo');
     });
   });
 });
