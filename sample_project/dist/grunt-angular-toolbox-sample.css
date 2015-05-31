@@ -12,4 +12,6 @@
   height: 50px;
   width: 50px;
 }
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9sZXNzL3N0eWxlLmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O0FBQUE7RUFDQyxnQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBIn0= */
+
+[my-directive] {
+  border: 2px solid fuchsia; }

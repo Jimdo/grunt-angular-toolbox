@@ -25,7 +25,10 @@ module.exports = function(grunt) {
   });
 
   /* Load grunt tasks from NPM packages */
-  require('load-grunt-tasks')(grunt);
+  grunt.loadNpmTasks('grunt-npm');
+  grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-bump');
+
 
   grunt.registerTask('test', ['shell:test']);
 

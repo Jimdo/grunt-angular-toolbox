@@ -1,6 +1,6 @@
 /**
  * ignore this file, required cause this project uses the node_modules of parent
- * copy of https://github.com/r3b/grunt-protractor-coverage/blob/58ebc8c4a1df7d8f64c12e4eb0b8e058e9e712ed/resources/saveCoverage.tmpl
+ * copy of https://github.com/r3b/grunt-protractor-coverage/blob/fbb8d5db714886f94ea5b7b2f263da73fe4488ac/resources/saveCoverage.tmpl
  */
 var fs=fs||require("fs");
 var http=http||require("http");
@@ -27,7 +27,8 @@ function saveCoverage(data){
   req.write('\n');
   req.end();
 }
-afterEach(function(){
+
+function runCoverageGlobal(){
   browser.driver.executeScript("return ('<%=coverage%>' in window)?window.<%=coverage%>:null;").then(function(val) {
     if (val) {
       saveCoverage(val);
@@ -35,4 +36,6 @@ afterEach(function(){
       console.warn('No coverage object in the browser.');
     }
   });
-});
+}
+
+afterEach(runCoverageGlobal);

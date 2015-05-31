@@ -35,7 +35,7 @@
     };
   });
 
-  // /Users/hannesdiercks/Sites/peons-angular/.tmp/ng_templates.js
+  // /Users/hannesdiercks/Sites/grunt-angular-toolbox/.tmp/ng_templates.js
   angular.module('grunt-angular-toolbox-sample').run(['$templateCache', function($templateCache) {
     'use strict';
 

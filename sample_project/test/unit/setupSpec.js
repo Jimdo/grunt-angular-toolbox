@@ -12,7 +12,7 @@ describe('Setup', function() { // jshint ignore: line
 
   it('should be able to find the angular module', function() {
     initGlobals();
-    expect(angular.module('grunt-angular-toolbox-sample')).toBeDefined();
+    expect(angular.module('gruntAngularToolboxSample')).toBeDefined();
   });
 
   it('should be able to create a directive', function() {

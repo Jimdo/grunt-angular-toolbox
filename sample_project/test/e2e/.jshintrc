@@ -1,10 +1,10 @@
 {
-	"extends": "../.jshintrc",
+	"extends": "../../.jshintrc",
+	"maxstatements": false,
+	"jasmine": true,
 	"browser": false,
 	"node": true,
 	"predef": [
-		"protractor",
-		"global",
 		"browser",
 		"element",
 		"by"

@@ -4,20 +4,36 @@ grunt-angular-toolbox
 [![Build Status](https://travis-ci.org/Jimdo/grunt-angular-toolbox.svg?branch=master)](https://travis-ci.org/Jimdo/grunt-angular-toolbox)
 [![Dependency Status](https://david-dm.org/Jimdo/grunt-angular-toolbox.svg)](https://david-dm.org/Jimdo/grunt-angular-toolbox)
 
-Collection of grunt tasks and optional opinionated configuration
+Collection of grunt tasks and opinionated configuration
 for development of small and mid-sized angular modules.
 
-Like:
+Compared to other tooling collections like [angular-seed](https://github.com/angular/angular-seed) and [yeoman angular generator](https://github.com/yeoman/generator-angular), this project aims to produce [bower](http://bower.io/) packages consumable by other angular apps.
+
+Examples:
  - [angular-fontselect](https://github.com/Jimdo/angular-fontselect)
+ - [angular-kachelei](https://github.com/Xiphe/angular-kachelei)
 
 
-Install
--------
+[Changelog](https://github.com/Jimdo/grunt-angular-toolbox/blob/master/CHANGELOG.md)
+------------------------------------------------------------------------------------
+
+Getting Started
+---------------
+
+This plugin requires Grunt `~0.4.5`
+
+If you haven't used [Grunt](http://gruntjs.com/) before, you probably don't want to use this
+but build your own tooling.
 
 ```sh
-npm install grunt --save-dev
-npm install grunt-cli --save-dev
+npm install grunt grunt-cli --save-dev
 npm install grunt-angular-toolbox --save-dev
+```
+
+Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+
+```js
+grunt.loadNpmTasks('grunt-angular-toolbox');
 ```
 
 Use
@@ -26,23 +42,23 @@ Use
 ```js
 // Gruntfile.js
 module.exports = function(grunt) {
-  'use strict';
+	'use strict';
 
-  grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    'angular-toolbox': { /* see config */ }
-    /* project specific configuration here */
-  });
+	grunt.initConfig({
+		pkg: grunt.file.readJSON('package.json'),
+		angularToolbox: { /* see config */ }
+		/* project specific configuration here */
+	});
 
-  /* load angular-toolbox collection 
-     see Included 3rd party tasks */
-  grunt.loadNpmTasks('grunt-angular-toolbox');
+	/* load angular-toolbox collection 
+		 see Included 3rd party tasks */
+	grunt.loadNpmTasks('grunt-angular-toolbox');
 
-  /* custom tasks and hooks */
-  grunt.registerTask('default', ['test']);
-  grunt.registerTask('build:after', function() {
-    grunt.log.ok('work complete!');
-  });
+	/* custom tasks and hooks */
+	grunt.registerTask('default', ['test']);
+	grunt.registerTask('build:after', function() {
+		grunt.log.ok('work complete!');
+	});
 };
 ```
 
@@ -50,7 +66,7 @@ module.exports = function(grunt) {
 Tasks
 -----
 
-Depending on the tasks added by [addTasks](#use) these grunts are available
+Depending on the tasks added by [angularToolbox.tasks](#Config) these grunts are available
 in the project.
 
 ```sh
@@ -75,11 +91,6 @@ __Options__:
  - `--no-coverage` disable coverage reports and instrumentation (useful for debugging)
  - `--no-jshint` disable jshint (useful for debugging)
 
-### $ `grunt tdd[:(unit|e2e)]`
-Run the tests and rerun on src changes
-
-Same __Environment Variables__ and __Options__ as the test task.
-
 ### $ `grunt demo[:e2e]`
 Serve demo or e2e standbox application
 
@@ -98,9 +109,6 @@ __Environment Variables__:
 
 __Options__:  
  - `--port` change port
-
-### $ `grunt coveralls`
-Send coverage report to coveralls, requires `grunt test:unit` to have been run once.
 
 ### $ `grunt build[:watch]`
 Concatenate, annotate and minify JavaScript and less/sass files
@@ -134,8 +142,7 @@ Default project structure
  │ │ ├ SpecHelper.js|coffee (test setup stuff)
  │ │ └ *Spec.js|coffee (end to end test files)
  │ └ unit/
- │   ├ SpecHelper.js|coffee (test setup stuff)
- │   └ *Spec.js|coffee (unit test files)
+ │   └ *.js|coffee (test setup stuff)
  ├ .jshintrc (optional)
  ├ bower.json (optional)
  ├ package.json
@@ -153,99 +160,120 @@ Values are defaults or explanations.
 ```js
 // Gruntfile.js
 module.exports = function(grunt) {
-  'use strict';
+	'use strict';
 
-  grunt.initConfig({
-    'angular-toolbox': {
-        /* specify the preconfigured tasks that 
-         should be used in the project */
-      tasks: [
-        'build',
-        'coverage',
-        'coveralls',
-        'demo',
-        'demo:e2e',
-        'release',
-        'tdd',
-        'test'
-      ],
-      
-      // whether or not the author in package.json should be set to the
-      // contributor with the most commits
-      dynamicAuthor: false,
-      
-      // customize the demo/test environment files
-      envFilter: function(env) { return env; },
+	grunt.initConfig({
+		'angular-toolbox': {
+				/* specify the preconfigured tasks that 
+				 should be used in the project */
+			tasks: [
+				'build',
+				'coverage',
+				'demo',
+				'demo:e2e',
+				'release',
+				'test'
+			],
+			
+			// whether or not the author in package.json should be set to the
+			// contributor with the most commits
+			dynamicAuthor: false,
+			
+			// customize the demo/test environment files
+			envFilter: function(env) { return env; },
 
-      // customize project structure
-      files: {
-        src: {
-          js: [
-            'src/js/helper.module.js',
-            'src/js/**/!(helper)*.js'
-          ],
-          less: [
-            'src/less/**/*.less'
-          ],
-          sass: [
-            'src/sass/**/*.scss'
-          ],
-          partialsFolder: 'src/partials/'
-        },
-        // additional vendor files for tests and demos that 
-        // won't be shipped within dist
-        vendor: {
-          js: {
-            top: [],
-            angularModules: [],
-            bottom: []
-          },
-          css: [],
-        },
-        test: {
-          unit: [
-            'test/unit/SpecHelper.+(js|coffee)',
-            'test/unit/**/*Spec.+(js|coffee)'
-          ],
-          e2e: [
-            'test/e2e/SpecHelper.+(js|coffee)',
-            'test/e2e/**/*Spec.+(js|coffee)'
-          ]
-        },
-        demoEnvFolder: 'demo/',
-        e2eEnvFolder: 'test/e2e/env/',
-        distFolder: 'dist/'
-      },
+			// customize project structure
+			files: {
+				bower: 'bower.json',
+				pkg: 'package.json',
+				src: {
+					js: [
+						'src/js/**/helper*.js',
+						'src/js/**/!(helper)*.js'
+					],
+					less: [
+						'src/less/**/!(_)*.less'
+					],
+					sass: [
+						'src/sass/**/!(_)*.scss'
+					]
+				},
+				test: {
+					unit: [
+						'test/unit/**/*.+(js|coffee)'
+					],
+					e2e: [
+						'test/e2e/SpecHelper.+(js|coffee)',
+						'test/e2e/**/*Spec.+(js|coffee)'
+					]
+				},
+				styleCheck: [] // run through jshint and jscs
+			},
 
-      // custom path for your jshintrc
-      jshintrc: '.jshintrc',
+			folder: {
+				dist: 'dist/',
+				demo: 'demo/',
+  			partials: 'src/partials/',
+  			e2eSandbox: 'test/e2e/env/',
+  			src: {
+	  			js: 'src/js/',
+	  			sass: 'src/sass/',
+	  			less: 'src/less/',
+  			}
+			},
 
-      // how much commits make a maintainer?
-      maintainersThreshold: 15,
 
-      // custom middleware for e2e or demo server
-      // can also be an array of middleware
-      middleware: {
-        e2e: function(req, res, next) { next(); },
-        demo: function(req, res, next) { next(); }
-      },
+			// how much commits make a maintainer?
+			maintainersThreshold: 15,
 
-      // the angular module name in case it differs from project name 
-      moduleName: '"name" from package.json',
+			// custom middleware for e2e and demo
+			// can be function or array of functions
+			customMiddleware: false,
 
-      // banners an wraps for generated dist files (can be paths or strings)
-      templates: {
-        banner: 'lib/templates/banner.tpl',
-        bannerMin: 'lib/templates/bannerMin.tpl',
-        wrapTop: 'lib/templates/wrapTop.tpl',
-        wrapBottom: 'lib/templates/wrapBottom.tpl'
-      }
-    }
+			// the angular module name in case it differs from project name 
+			moduleName: 'camelCased "name" from package.json',
 
-    /* additional configuration ... */
-  });
+			// banners an wraps for generated dist files
+			// see https://github.com/Jimdo/grunt-angular-toolbox/tree/master/lib/templates
+			templates: {
+				banner: '/* ... */',
+				bannerMin: '/* ... */',
+				wrapTop: '/* ... */',
+				wrapBottom: '/* ... *'
+			},
 
-  /* rest of gruntfile ... */
+			// disable coverage reports
+			coverage: true,
+
+			// disable jshint
+  		jshint: true,
+
+  		// default port for demo
+  		demoPort: 8000,
+
+  		// default port for coverage
+  		coveragePort: 7000,
+
+  		// default port for e2e
+  		e2eSandboxPort: 8765,
+
+  		// default browsers for karma
+  		unitBrowsers: ['Chrome', 'Firefox', 'PhantomJS'],
+
+  		// default browsers for protractor
+  		e2eBrowsers: ['Chrome'],
+
+  		// default reporters for karma
+  		unitReporters: ['progress'],
+
+  		// default reporter for protractor
+  		e2eReporter: 'spec',
+		}
+
+		/* additional configuration ... */
+	});
+
+	/* rest of gruntfile ... */
 };
 ```
 
@@ -258,20 +286,20 @@ Register custom tasks and or setup before the added tasks run.
 ```js
 // Gruntfile.js
 module.exports = function(grunt) {
-  'use strict';
+	'use strict';
 
-  grunt.initConfig({ /* ... */ });
+	grunt.initConfig({ /* ... */ });
 
-  /* initiation of tasks ... */
+	/* initiation of tasks ... */
 
-  /* add any custom tasks */
-  grunt.registerTask('sayYolo', function() {
-    console.log('YOLO!');
-  });
+	/* add any custom tasks */
+	grunt.registerTask('sayYolo', function() {
+		console.log('YOLO!');
+	});
 
-  /* hook it into tooling tasks ones.
-     this will be called before all other release tasks */
-  grunt.registerTask('release:before', ['sayYolo']);
+	/* hook it into tooling tasks ones.
+		 this will be called before all other release tasks */
+	grunt.registerTask('release:before', ['sayYolo']);
 };
 ```
 
@@ -283,9 +311,12 @@ module.exports = function(grunt) {
  - test:after
  - test:unit:after
  - test:e2e:after
- - tdd:before
- - tdd:unit:before
- - tdd:e2e:before
+ - runtest:before
+ - runtest:unit:before
+ - runtest:e2e:before
+ - runtest:after
+ - runtest:unit:after
+ - runtest:e2e:after
  - demo:before
  - demo:e2e:before
  - coverage:before
@@ -308,15 +339,16 @@ Included 3rd party tasks
  - [grunt-contrib-less](https://github.com/gruntjs/grunt-contrib-less)
  - [grunt-contrib-uglify](https://github.com/gruntjs/grunt-contrib-uglify)
  - [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch)
- - [grunt-coveralls](https://github.com/pimterry/grunt-coveralls)
+ - [grunt-injector](https://github.com/klei/grunt-injector)
  - [grunt-istanbul](https://github.com/taichi/grunt-istanbul)
  - [grunt-karma](https://github.com/karma-runner/grunt-karma)
  - [grunt-ng-annotate](https://github.com/mzgol/grunt-ng-annotate)
- - [grunt-npm](https://github.com/Xiphe/grunt-npm/)
  - [grunt-protractor-coverage](https://github.com/r3b/grunt-protractor-coverage)
  - [grunt-protractor-webdriver](https://github.com/seckardt/grunt-protractor-webdriver)
  - [grunt-sass](https://github.com/sindresorhus/grunt-sass)
  - [grunt-shell](https://github.com/sindresorhus/grunt-shell)
+ - [grunt-update-contributors](https://github.com/Xiphe/grunt-update-contributors)
+ - [grunt-wiredep](https://github.com/stephenplusplus/grunt-wiredep)
 
 
 LICENSE
