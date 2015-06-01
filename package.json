@@ -34,9 +34,12 @@
     "load-grunt-tasks": "^3.2.0"
   },
   "dependencies": {
+    "autoprefixer": "^5.2.0",
     "coffee-script": "^1.9.3",
     "connect-less": "^0.3.1",
+    "express-autoprefixer": "^3.1.1",
     "grunt-angular-templates": "~0.5.7",
+    "grunt-autoprefixer": "^3.0.1",
     "grunt-bump": "0.3.1",
     "grunt-concurrent": "^1.0.0",
     "grunt-contrib-concat": "~0.5.1",
@@ -52,7 +55,6 @@
     "grunt-karma": "~0.11.0",
     "grunt-ng-annotate": "^1.0.1",
     "grunt-protractor-coverage": "^0.2.14",
-    "protractor": "^2.1.0",
     "grunt-protractor-webdriver": "^0.2.0",
     "grunt-sass": "^1.0.0",
     "grunt-shell": "~1.1.2",
@@ -71,6 +73,7 @@
     "karma-script-launcher": "^0.1.0",
     "karma-spec-reporter": "0.0.19",
     "node-sass-middleware": "^0.8.0",
+    "protractor": "^2.1.0",
     "wiredep": "^2.2.2"
   }
 }
