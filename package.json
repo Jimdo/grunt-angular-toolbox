@@ -10,7 +10,7 @@
     "Hauke Stange <hauke@jimdo.com>"
   ],
   "contributors": [],
-  "main": "lib/index.js",
+  "main": "tasks/init.js",
   "keywords": [
     "angular",
     "grunt",
