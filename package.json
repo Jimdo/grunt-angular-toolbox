@@ -55,6 +55,7 @@
     "grunt-karma": "~0.11.0",
     "grunt-ng-annotate": "^1.0.1",
     "grunt-protractor-coverage": "^0.2.14",
+    "grunt-protractor-runner": "^2.0.0",
     "grunt-protractor-webdriver": "^0.2.0",
     "grunt-sass": "^1.0.0",
     "grunt-shell": "~1.1.2",

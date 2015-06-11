@@ -19,7 +19,11 @@ module.exports = function(grunt) {
     },
     shell: {
       test: {
-        command: 'cd sample_project && ../node_modules/.bin/grunt test'
+        command: [
+          'cd sample_project',
+          '../node_modules/.bin/grunt test',
+          '../node_modules/.bin/grunt test --no-coverage'
+        ].join(' && ')
       }
     },
     jshint: {
