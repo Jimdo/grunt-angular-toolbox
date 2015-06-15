@@ -82,6 +82,7 @@ __Environment Variables__:
  - `E2E_SANDBOX_PORT` change port (default: 8765)
  - `KARMA_BROWSERS` overwrite browsers for unit tests (default: PhantomJs,Chrome,Firefox)
  - `KARMA_REPORTERS` overwrite reporters for unit tests (default: progress)
+ - `USE_SAUCELABS` weather or not to run e2e tests on saucelabs (default: true)
  - `PROTRACTOR_BROWSERS` overwrite browsers for unit tests (default: Chrome)
  - `PROTRACTOR_REPORTERS` overwrite reporters for unit tests (default: dots)
 
@@ -90,6 +91,7 @@ __Options__:
  - `--reporters` change reporters for current suite(s)
  - `--no-coverage` disable coverage reports and instrumentation (useful for debugging)
  - `--no-jshint` disable jshint (useful for debugging)
+ - `--no-saucelabs` disable saucelabs
 
 ### $ `grunt demo[:e2e]`
 Serve demo or e2e standbox application
@@ -160,122 +162,148 @@ Values are defaults or explanations.
 ```js
 // Gruntfile.js
 module.exports = function(grunt) {
-	'use strict';
+  'use strict';
 
-	grunt.initConfig({
-		'angular-toolbox': {
-				/* specify the preconfigured tasks that 
-				 should be used in the project */
-			tasks: [
-				'build',
-				'coverage',
-				'demo',
-				'demo:e2e',
-				'release',
-				'test'
-			],
-			
-			// whether or not the author in package.json should be set to the
-			// contributor with the most commits
-			dynamicAuthor: false,
-			
-			// customize the demo/test environment files
-			envFilter: function(env) { return env; },
+  grunt.initConfig({
+    'angular-toolbox': {
+        /* specify the preconfigured tasks that 
+         should be used in the project */
+      tasks: [
+        'build',
+        'coverage',
+        'demo',
+        'demo:e2e',
+        'release',
+        'test'
+      ],
+      
+      // whether or not the author in package.json should be set to the
+      // contributor with the most commits
+      dynamicAuthor: false,
+      
+      // customize the demo/test environment files
+      envFilter: function(env) { return env; },
 
-			// customize project structure
-			files: {
-				bower: 'bower.json',
-				pkg: 'package.json',
-				src: {
-					js: [
-						'src/js/**/helper*.js',
-						'src/js/**/!(helper)*.js'
-					],
-					less: [
-						'src/less/**/!(_)*.less'
-					],
-					sass: [
-						'src/sass/**/!(_)*.scss'
-					]
-				},
-				test: {
-					unit: [
-						'test/unit/**/*.+(js|coffee)'
-					],
-					e2e: [
-						'test/e2e/SpecHelper.+(js|coffee)',
-						'test/e2e/**/*Spec.+(js|coffee)'
-					]
-				},
-				styleCheck: [] // run through jshint and jscs
-			},
+      // customize project structure
+      files: {
+        bower: 'bower.json',
+        pkg: 'package.json',
+        src: {
+          js: [
+            'src/js/**/helper*.js',
+            'src/js/**/!(helper)*.js'
+          ],
+          less: [
+            'src/less/**/!(_)*.less'
+          ],
+          sass: [
+            'src/sass/**/!(_)*.scss'
+          ]
+        },
+        test: {
+          unit: [
+            'test/unit/**/*.+(js|coffee)'
+          ],
+          e2e: [
+            'test/e2e/SpecHelper.+(js|coffee)',
+            'test/e2e/**/*Spec.+(js|coffee)'
+          ]
+        },
+        styleCheck: [] // run through jshint and jscs
+      },
 
-			folder: {
-				dist: 'dist/',
-				demo: 'demo/',
-  			partials: 'src/partials/',
-  			e2eSandbox: 'test/e2e/env/',
-  			src: {
-	  			js: 'src/js/',
-	  			sass: 'src/sass/',
-	  			less: 'src/less/',
-  			}
-			},
+      folder: {
+        dist: 'dist/',
+        demo: 'demo/',
+        partials: 'src/partials/',
+        e2eSandbox: 'test/e2e/env/',
+        src: {
+          js: 'src/js/',
+          sass: 'src/sass/',
+          less: 'src/less/',
+        }
+      },
 
+      // how much commits make a maintainer?
+      maintainersThreshold: 15,
 
-			// how much commits make a maintainer?
-			maintainersThreshold: 15,
+      // custom middleware for e2e and demo
+      // can be function or array of functions
+      customMiddleware: false,
 
-			// custom middleware for e2e and demo
-			// can be function or array of functions
-			customMiddleware: false,
+      // the angular module name in case it differs from project name 
+      moduleName: 'camelCased "name" from package.json',
 
-			// the angular module name in case it differs from project name 
-			moduleName: 'camelCased "name" from package.json',
+      // banners an wraps for generated dist files
+      // see https://github.com/Jimdo/grunt-angular-toolbox/tree/master/lib/templates
+      templates: {
+        banner: '/* ... */',
+        bannerMin: '/* ... */',
+        wrapTop: '/* ... */',
+        wrapBottom: '/* ... *'
+      },
 
-			// banners an wraps for generated dist files
-			// see https://github.com/Jimdo/grunt-angular-toolbox/tree/master/lib/templates
-			templates: {
-				banner: '/* ... */',
-				bannerMin: '/* ... */',
-				wrapTop: '/* ... */',
-				wrapBottom: '/* ... *'
-			},
+      // disable coverage reports
+      coverage: true,
 
-			// disable coverage reports
-			coverage: true,
+      // disable jshint
+      jshint: true,
 
-			// disable jshint
-  		jshint: true,
+      // default port for demo
+      demoPort: 8000,
 
-  		// default port for demo
-  		demoPort: 8000,
+      // default port for coverage
+      coveragePort: 7000,
 
-  		// default port for coverage
-  		coveragePort: 7000,
+      // default port for e2e
+      e2eSandboxPort: 8765,
 
-  		// default port for e2e
-  		e2eSandboxPort: 8765,
+      // default browsers for karma
+      unitBrowsers: ['Chrome', 'Firefox', 'PhantomJS'],
 
-  		// default browsers for karma
-  		unitBrowsers: ['Chrome', 'Firefox', 'PhantomJS'],
+      // default browsers for protractor
+      e2eBrowsers: ['Chrome'],
 
-  		// default browsers for protractor
-  		e2eBrowsers: ['Chrome'],
+      // default reporters for karma
+      unitReporters: ['progress'],
 
-  		// default reporters for karma
-  		unitReporters: ['progress'],
+      // default reporter for protractor
+      e2eReporter: 'spec'
 
-  		// default reporter for protractor
-  		e2eReporter: 'spec',
-		}
+      // default browsers for autoprefixer
+      autoprefixerBrowsers: [
+        'last 5 version',
+        '> 1%',
+        'ie 8'
+      ],
 
-		/* additional configuration ... */
-	});
+      // execute e2e test on soucelabs if credentials are present
+      saucelabs: true,
 
-	/* rest of gruntfile ... */
+      hooks: {
+        // manipulate e2e capabilities
+        e2eCapabilities: function(caps) { return caps; }
+      }
+    }
+
+    /* additional configuration ... */
+  });
+
+  /* rest of gruntfile ... */
 };
 ```
+
+Saucelabs
+---------
+
+e2e tests are being executed on saucelabs, given 
+`SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` are available as environment variables
+
+a tunnel to saucelabs needs to be available for this
+
+see 
+ - https://docs.saucelabs.com/reference/sauce-connect/
+ - http://docs.travis-ci.com/user/sauce-connect/
 
 
 Custom tasks and hooks
