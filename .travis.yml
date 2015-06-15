@@ -7,8 +7,9 @@ node_js:
 
 env:
   global:
-    - PROTRACTOR_BROWSERS=firefox
+    - PROTRACTOR_BROWSERS=firefox,chrome
     - KARMA_BROWSERS=Firefox,PhantomJS
+    - KARMA_REPORTERS=spec
     # SAUCE_USERNAME
     - secure: "fMFTJzUcoNRl8RgUGgWK5VuqdBRlb8yXdQVHbS51NAFiqx03fYpOy3TJ2awfIbqAHdQ4RO1ALsxRS4KPzT40CAS9sPTcKT4qzP53ET+9wADWsfwPqH/2Hq0lgmaVtGeEJjydf47p3aKClA9BLTpYmQxVA3zJBaRU/6mHLi7611k="
     # SAUCE_ACCESS_KEY
