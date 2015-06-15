@@ -42,23 +42,23 @@ Use
 ```js
 // Gruntfile.js
 module.exports = function(grunt) {
-	'use strict';
+  'use strict';
 
-	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
-		angularToolbox: { /* see config */ }
-		/* project specific configuration here */
-	});
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    angularToolbox: { /* see config */ }
+    /* project specific configuration here */
+  });
 
-	/* load angular-toolbox collection 
-		 see Included 3rd party tasks */
-	grunt.loadNpmTasks('grunt-angular-toolbox');
+  /* load angular-toolbox collection 
+     see Included 3rd party tasks */
+  grunt.loadNpmTasks('grunt-angular-toolbox');
 
-	/* custom tasks and hooks */
-	grunt.registerTask('default', ['test']);
-	grunt.registerTask('build:after', function() {
-		grunt.log.ok('work complete!');
-	});
+  /* custom tasks and hooks */
+  grunt.registerTask('default', ['test']);
+  grunt.registerTask('build:after', function() {
+    grunt.log.ok('work complete!');
+  });
 };
 ```
 
@@ -84,7 +84,6 @@ __Environment Variables__:
  - `KARMA_REPORTERS` overwrite reporters for unit tests (default: progress)
  - `USE_SAUCELABS` weather or not to run e2e tests on saucelabs (default: true)
  - `PROTRACTOR_BROWSERS` overwrite browsers for unit tests (default: Chrome)
- - `PROTRACTOR_REPORTERS` overwrite reporters for unit tests (default: dots)
 
 __Options__:  
  - `--browsers` change browsers for current suite(s)
@@ -314,20 +313,20 @@ Register custom tasks and or setup before the added tasks run.
 ```js
 // Gruntfile.js
 module.exports = function(grunt) {
-	'use strict';
+  'use strict';
 
-	grunt.initConfig({ /* ... */ });
+  grunt.initConfig({ /* ... */ });
 
-	/* initiation of tasks ... */
+  /* initiation of tasks ... */
 
-	/* add any custom tasks */
-	grunt.registerTask('sayYolo', function() {
-		console.log('YOLO!');
-	});
+  /* add any custom tasks */
+  grunt.registerTask('sayYolo', function() {
+    console.log('YOLO!');
+  });
 
-	/* hook it into tooling tasks ones.
-		 this will be called before all other release tasks */
-	grunt.registerTask('release:before', ['sayYolo']);
+  /* hook it into tooling tasks ones.
+     this will be called before all other release tasks */
+  grunt.registerTask('release:before', ['sayYolo']);
 };
 ```
 
