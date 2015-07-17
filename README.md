@@ -164,7 +164,7 @@ module.exports = function(grunt) {
   'use strict';
 
   grunt.initConfig({
-    'angular-toolbox': {
+    'angularToolbox': {
         /* specify the preconfigured tasks that 
          should be used in the project */
       tasks: [
@@ -235,7 +235,7 @@ module.exports = function(grunt) {
 
       // banners an wraps for generated dist files
       // see https://github.com/Jimdo/grunt-angular-toolbox/tree/master/lib/templates
-      templates: {
+      template: {
         banner: '/* ... */',
         bannerMin: '/* ... */',
         wrapTop: '/* ... */',
