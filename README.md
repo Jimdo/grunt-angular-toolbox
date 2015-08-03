@@ -378,6 +378,12 @@ Included 3rd party tasks
  - [grunt-wiredep](https://github.com/stephenplusplus/grunt-wiredep)
 
 
+DEPENDENCIES
+-------
+
+ * [Java](https://support.apple.com/kb/DL1572?viewlocale=en_US&locale=en_US)
+ * Node & Npm
+ 
 LICENSE
 -------
 
