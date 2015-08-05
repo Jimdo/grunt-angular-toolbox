@@ -28,7 +28,7 @@ before_script:
 
 script:
   - USE_SAUCELABS=0 grunt test
-  - cd sample_project && ../node_modules/.bin/grunt test:e2e --no-coverage --browsers="chrome,firefox,internet explorer,safari,opera"
+  - cd sample_project && ../node_modules/.bin/grunt test:e2e --no-coverage --browsers="chrome,firefox,internet explorer,safari"
 
 addons:
   sauce_connect: true
