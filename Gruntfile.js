@@ -22,7 +22,6 @@ module.exports = function(grunt) {
         command: [
           'cd sample_project',
           '../node_modules/.bin/grunt test',
-          '../node_modules/.bin/grunt test --no-coverage'
         ].join(' && ')
       }
     },
