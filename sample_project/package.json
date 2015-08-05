@@ -3,5 +3,8 @@
   "version": "0.0.0",
   "description": "sample project for grunt-angular-toolbox",
   "homepage": "https://github.com/Jimdo/grunt-angular-toolbox/tree/master/sample_project",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "grunt-angular-toolbox": "1.1.3"
+  }
 }

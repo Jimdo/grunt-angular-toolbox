@@ -80,6 +80,7 @@
     "postcss": "^4.1.16",
     "protractor": "^2.1.0",
     "requirejs": "^2.1.20",
-    "wiredep": "^3.0.0-beta"
+    "wiredep": "^3.0.0-beta",
+    "semver": "~5.0.1"
   }
 }
