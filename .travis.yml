@@ -7,7 +7,6 @@ node_js:
 
 env:
   global:
-    - PROTRACTOR_BROWSERS=firefox,chrome
     - KARMA_BROWSERS=Firefox,PhantomJS
     - KARMA_REPORTERS=spec
     # SAUCE_USERNAME
@@ -27,7 +26,9 @@ before_script:
   - sh -e /etc/init.d/xvfb start
 
 script:
-  - grunt test
+  - grunt test:unit
+  - grunt test:e2e --browser=firefox
+  - grunt test:e2e --no-coverage --browsers='chrome,firefox,internet explorer'
 
 addons:
   sauce_connect: true
