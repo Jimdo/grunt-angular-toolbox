@@ -34,7 +34,7 @@
     "load-grunt-tasks": "^3.2.0"
   },
   "dependencies": {
-    "autoprefixer": "^6.0.3",
+    "autoprefixer": "^5.2.0",
     "coffee-script": "^1.9.3",
     "connect-less": "^0.3.1",
     "express-autoprefixer": "^4.0.3",
@@ -78,7 +78,7 @@
     "node-sass": "~3.3.3",
     "node-sass-middleware": "0.9.6",
     "phantomjs": "^1.9.18",
-    "postcss": "^5.0.10",
+    "postcss": "^4.1.16",
     "protractor": "^2.1.0",
     "requirejs": "^2.1.20",
     "wiredep": "^3.0.0-beta",
