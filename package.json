@@ -80,7 +80,7 @@
     "phantomjs": "^1.9.18",
     "postcss": "^4.1.16",
     "protractor": "^2.1.0",
-    "requirejs": "^2.1.20",
+    "requirejs": "^2.1.22",
     "wiredep": "^3.0.0-beta",
     "semver": "~5.0.1"
   }
