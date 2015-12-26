@@ -34,7 +34,7 @@
     "load-grunt-tasks": "^3.2.0"
   },
   "dependencies": {
-    "autoprefixer": "^5.2.0",
+    "autoprefixer": "^6.2.2",
     "coffee-script": "^1.9.3",
     "connect-less": "^0.3.1",
     "express-autoprefixer": "^4.0.3",
