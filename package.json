@@ -25,6 +25,9 @@
   "scripts": {
     "test": "grunt test"
   },
+  "engines" : {
+    "node" : ">=4"
+  },
   "license": "MIT",
   "devDependencies": {
     "bower": "^1.4.1",
