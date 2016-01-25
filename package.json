@@ -80,7 +80,7 @@
     "karma-spec-reporter": "0.0.23",
     "node-sass": "~3.4.2",
     "node-sass-middleware": "^0.9.7",
-    "phantomjs": "^1.9.19",
+    "phantomjs": "^2.1.1",
     "postcss": "^4.1.16",
     "protractor": "^3.0.0",
     "requirejs": "^2.1.22",
