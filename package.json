@@ -81,7 +81,7 @@
     "node-sass": "~3.4.2",
     "node-sass-middleware": "^0.9.7",
     "phantomjs": "^2.1.3",
-    "postcss": "^4.1.16",
+    "postcss": "^5.0.16",
     "protractor": "^3.0.0",
     "requirejs": "^2.1.22",
     "semver": "~5.1.0",
