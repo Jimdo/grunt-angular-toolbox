@@ -60,7 +60,7 @@
     "grunt-protractor-runner": "^3.0.0",
     "grunt-protractor-webdriver": "^0.2.5",
     "grunt-sass": "^1.1.0",
-    "grunt-shell": "~1.1.2",
+    "grunt-shell": "~1.2.0",
     "grunt-thrall": "~0.0.4",
     "grunt-update-contributors": "0.0.1",
     "grunt-wiredep": "^2.0.0",
