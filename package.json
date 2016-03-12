@@ -50,7 +50,7 @@
     "grunt-contrib-jshint": "~1.0.0",
     "grunt-contrib-less": "~1.2.0",
     "grunt-contrib-uglify": "~1.0.0",
-    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-watch": "~1.0.0",
     "grunt-injector": "^0.6.1",
     "grunt-istanbul": "^0.7.0",
     "grunt-jscs": "^2.7.0",
