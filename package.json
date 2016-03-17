@@ -85,6 +85,6 @@
     "protractor": "^3.1.1",
     "requirejs": "^2.1.22",
     "semver": "~5.1.0",
-    "wiredep": "^3.0.0"
+    "wiredep": "^3.0.1"
   }
 }
