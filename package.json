@@ -84,7 +84,7 @@
     "postcss-middleware": "^1.0.0",
     "protractor": "^3.2.1",
     "requirejs": "^2.2.0",
-    "semver": "~5.1.0",
+    "semver": "~5.2.0",
     "wiredep": "^4.0.0"
   }
 }
