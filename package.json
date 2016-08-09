@@ -40,7 +40,7 @@
     "autoprefixer": "^6.3.4",
     "coffee-script": "^1.10.0",
     "connect-less": "^0.3.1",
-    "grunt-angular-templates": "~1.0.3",
+    "grunt-angular-templates": "~1.1.0",
     "grunt-autoprefixer": "^3.0.4",
     "grunt-bump": "0.7.3",
     "grunt-concurrent": "^2.2.1",
