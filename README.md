@@ -1,6 +1,13 @@
 grunt-angular-toolbox
 =====================
 
+# DEPRECATED + NOT MAINTAINED ANYMORE
+
+you might want to just use npm scripts or check the state
+of [gulp-toolbox](https://github.com/search?utf8=✓&q=gulp+toolbox+user%3AXiphe)
+which is the mental follow-up to this project.
+
+
 [![Build Status](https://travis-ci.org/Jimdo/grunt-angular-toolbox.svg?branch=master)](https://travis-ci.org/Jimdo/grunt-angular-toolbox)
 [![Dependency Status](https://david-dm.org/Jimdo/grunt-angular-toolbox.svg)](https://david-dm.org/Jimdo/grunt-angular-toolbox)
 
