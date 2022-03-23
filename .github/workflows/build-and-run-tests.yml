@@ -1,0 +1,33 @@
+name: build and run tests
+on:
+  pull_request
+jobs:
+  build_and_run_tests_action:
+    runs-on: ubuntu-latest
+    env:
+      KARMA_BROWSERS: PhantomJS,Firefox
+      PROTRACTOR_BROWSERS: Firefox
+      DISPLAY: :99.0
+      KARMA_REPORTERS: spec
+    name: Build and run action on on NodeJs 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 10
+      - run: sudo apt update
+      - run: sudo apt-get install firefox -y
+      - uses: actions/checkout@v2
+      - uses: nanasess/setup-chromedriver@v1
+        with:
+          chromedriver-version: '99.0.4844.51'
+      - name: Install dependencies
+        run: npm install
+      - run: npm rebuild node-sass
+      - run:  cd sample_project && ../node_modules/.bin/bower install
+      - run: cd ..
+      - name: Run headless test
+        uses: GabrielBB/xvfb-action@v1
+        with:
+         run:  grunt test
